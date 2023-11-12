@@ -1,0 +1,240 @@
+\documentclass[12pt,a4paper]{article}
+
+    % PREAMBULA
+
+
+\usepackage{preambula_knap}
+\usepackage{xcolor}
+
+\title{Simpsonovi zapiski v \LaTeX  \space  datoteki}
+
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\renewcommand\fbox{\fcolorbox{orange}{white}}
+\newcommand{\dokaz}{\orange{\text{\ldots <dokaz> \ldots}}}
+\newcommand{\izraz}{\text{<} izraz \text{>}}
+
+
+%Škatlica(ni zapisana kot \newenvironment, ker je notri \boxed)
+\newcommand{\skatlica}[1]{
+    \begin{equation*}
+        \boxed{
+        \begin{aligned}
+            #1
+        \end{aligned}
+        }
+    \end{equation*}
+}
+
+    % DOKUMENT
+
+\pagenumbering{gobble}
+\begin{document}
+
+
+
+
+
+\maketitle
+
+\break
+
+\section*{Uvod}
+Te zapiski so mišljeni kot kompaktna oblika Simpsonovih zapiskov za pravila uporabe in vpeljave.
+Namenjena so tudi za uporabo pri kolokvijih, kvizih in izpitih. 
+Če kdo najde napako ali ima kakšno opombo me lahko kontaktira. 
+(To datoteko bom morda probal povezati z GitHubom.)
+Oranžni kvadrati za dokaze izgledajo dokaj vredu, če kdo ve kako narediti to bolje naj prosim sporoči.
+
+\break
+
+    % PRAVILA
+
+\pagenumbering{arabic}
+
+\section{Pravila dokazovanja}
+    \subsection*{Pravili zamenjave}
+    \begin{itemize}
+        \item \emph{izraz} smemo zamenjati z njemu enakim izrazom
+        \item \emph{izjavo} smemo zamenjti z njej ekvivalentno izjavo
+    \end{itemize}
+    za vsak veznik in kvantifikator.
+
+    \subsection*{Pravila vpeljave}
+    Povedo nam, kako neposredno dokažemo izjavo s tem veznikom ali kvantifikatorjem.
+
+    \subsection*{Pravila uporabe}
+    Povedo nam, kako že znano izjavo uporabimo. 
+
+\section{Konjunkcija}
+    \subsection*{Pravilo upeljave}
+        \begin{itemize}
+            \item Če sta izjavi $ \Phi $ in $ \Psi $ na voljo, potem lahko dodamo v dokaz:
+            $$  \Phi \wedge \Psi \blue{\text{ ker veljata }  \Phi  \text{ in } \Psi}  $$
+        \end{itemize}
+
+    \subsection*{Pravili uporabe}
+    \begin{itemize}
+        \item Če je izjava $ \Phi \wedge \Psi $ na voljo, potem lahko dodamo v dokaz:
+        $$ \Phi \blue{\text{ ker velja } \Phi \wedge \Psi } $$
+        \item Če je izjava $ \Phi \wedge \Psi $ na voljo, potem lahko dodamo v dokaz:
+        $$ \Psi \blue{\text{ ker velja } \Phi \wedge \Psi } $$
+    \end{itemize}
+
+\section{Implikacija}
+    \subsection*{Pravilo vpeljave}
+    Lahko dodamo v dokaz:
+    $$ \blue{\text{Dokažimo } \Phi \Rightarrow \Psi}  $$
+    \begin{equation*}
+        \boxed{
+        \begin{aligned}
+            &\blue{\text{Predpostavimo }} \Phi  \\ 
+            &\orange{\text{\ldots <dokaz> \ldots}} \\ 
+            &\Psi
+        \end{aligned}
+        }
+    \end{equation*}
+    $$ \Phi \Rightarrow \Psi $$
+
+    \noindent \purple{Predpostavka $ \Phi $ je na voljo le v oranžni škatlici.}
+
+    \subsection*{Pravilo uporabe}
+    \begin{itemize}
+        \item Če sta izjavi $ \Phi \Rightarrow \Psi $ in $ \Phi $ na voljo, potem lahko dodamo v dokaz:
+        $$  \Psi \blue{\text{ ker veljata } \Phi \Rightarrow \Psi \text{ in } \Phi}   $$
+    \end{itemize}
+
+\section{Disjunkcija}
+    \subsection*{Pravili vpeljave}
+    \begin{itemize}
+        \item Če je izjava $\Phi$ na voljo, potem lahko dodamo v dokaz:
+        $$ \Phi \vee \Psi \blue{\text{ ker velja } \Phi } $$
+        \item Če je izjava $\Psi$ na voljo, potem lahko dodamo v dokaz:
+        $$ \Phi \vee \Psi \blue{\text{ ker velja } \Psi } $$
+    \end{itemize}
+
+    \subsection*{Pravilo uporabe}
+    \begin{itemize}
+        \item Če je izjava $ \Phi \vee \Psi $ na voljo in bi želeli dokazati $ \rho $, lahko dodamo v dokaz:
+        $$ \blue{\text{Dokažemo } \rho \text{ z uporabo } \Phi \vee \Psi } $$
+        \skatlica{
+            &\blue{\text{Predpostavimo }} \Phi \\
+            &\orange{\text{\ldots <dokaz> \ldots}} \\
+            &\rho 
+        }
+        \skatlica{
+            &\blue{\text{Predpostavimo }} \Psi \\
+            &\orange{\text{\ldots <dokaz> \ldots}} \\
+            &\rho 
+        }
+        $$ \rho $$
+    \end{itemize}
+    \noindent \purple{Vsaka predpostavka je na voljo le v svoji oranžni škatlici.}
+
+\section{Negacija}
+    \subsection*{Pravilo vpeljave}
+    \begin{itemize}
+        \item Lahko dodamo v dokaz:
+        $$   \blue{\text{Dokažemo } \neg \Phi  }   $$
+        \skatlica{
+            &\blue{\text{Predpostavimo }} \Phi \\
+            &\dokaz \\
+            &\bot 
+        }
+        $$ \neg \Phi $$
+    \end{itemize}
+    \purple{Predpostavka $ \Phi $ je na voljo le v oranžni škatlici.}
+
+    \subsection{Pravilo uporabe}
+    \begin{itemize}
+        \item Če sta $ \neg \Phi $ in $ \Phi  $ na voljo, lahko dodamo v dokaz:
+        $$  \bot \blue{\text{ ker veljata } \neg \Phi \text{ in } \Phi } $$
+    \end{itemize}
+
+
+\section{Neresnica}
+    \subsection*{Pravila vpeljave ni}
+    \subsection*{Pravilo uporabe}
+    \begin{itemize}
+        \item Če je $ \bot $ na voljo, lahko dodamo v dokaz:
+        $$ \Phi \blue{\text{ zaradi protislovja}}  $$
+    \end{itemize}
+
+\section{Resnica}
+    \subsection*{Pravilo vpeljave}
+    \begin{itemize}
+        \item Vedno lahko dodamo v dokaz:
+        $$ \top \blue{\text{ očitno}}  $$
+    \end{itemize}
+    \subsection*{Pravila uporabe ni}
+
+\section{Dokaz s protislovjem}
+    \begin{itemize}
+            \item Dodamo v dokaz:
+            $$ \blue{\text{Dokažemo } \Phi \text{ s protislovjem}} $$
+            \skatlica{
+                &\blue{\text{Predpostavimo }} \neg \Phi \\ 
+                &\dokaz \\ 
+                &\bot 
+            }
+            $$ \Phi $$
+    \end{itemize}
+    \purple{Predpostavka $ \Phi $ je na voljo le v oranžni škatlici.}
+
+\section{Pravilo izključene tretje možnosti}
+    \begin{itemize}
+        \item Vedno lahko dodamo v dokaz:
+        $$ \Phi \vee \neg \Phi \blue{\text{ LEM}}  $$
+    \end{itemize}
+    \purple{LEM pomeni "Law of the Excluded Middle".}
+
+\section{Univerzalni kvantifikator}
+    \subsection*{Pravilo vpeljave}
+    \begin{itemize}
+        \item Dodamo v dokaz
+        $$ \blue{\text{Dokažemo } \forall x \in X. \: \Phi (X)  } $$
+        \skatlica{
+            &\blue{\text{Naj bo }} x \in X \\ 
+            &\dokaz \\ 
+            &\Phi (X)
+        }
+        $$ \forall x \in X. \: \Phi (X) $$
+    \end{itemize}
+    \purple{Izjava $ x \in X $ doda spremenljivko $x$ v kontext. $x$ mora biti sveža spremenljivka. $x$ je na voljo le v oranžni škatlici. }
+
+    \subsection*{Pravilo uporabe}
+    \begin{itemize}
+        \item  Če je $ \forall x \in X. \: \Phi (X) $ na voljo in če vemo da je $ \izraz \in X $, lahko dodamo v dokaz:
+        $$ \Phi ( \izraz ) \blue{\text{ ker velja } \forall x \in X. \: \Phi (X) } $$ 
+    \end{itemize}
+    \purple{Vse proste spremenljivke v $ \izraz $u morajo biti it trenutnega konteksta.}
+
+\section{Eksistenčni kvantifikator}
+    \subsection*{Pravilo vpeljave}
+    \begin{itemize}
+        \item Če je $ \Phi ( \izraz )$ na voljo in vemo, da $ \izraz \in X $, lahko dodamo v dokaz:
+        $$ \exists x \in X . \: \Phi \blue{\text{ ker velja } \Phi ( \izraz ) } $$ 
+    \end{itemize}
+    \purple{Samodejno drži, da so vse proste spremenljivke $\izraz$a iz konteksta, ker je to posledica pogoja, da je $\Phi ( \izraz)$ na voljo.}
+
+    \subsection*{Pravilo uporabe}
+    \begin{itemize}
+        \item Če je izjava $ \exists x \in X. \: \Phi (X) $ na voljo in želimo dokazati $ \rho $, lahko dodamo v dokaz:
+        $$ \blue{\text{Dokažemo } \rho \text{ z uporabo } \exists x \in X. \: \Phi (X) } $$
+        \skatlica{
+            &\blue{\text{Naj bo }} x \in X \\
+            &\blue{\text{Predpostavimo }} \Phi ( x ) \\ 
+            &\dokaz \\ 
+            &\rho
+        }
+        $$ \rho $$
+    \end{itemize}
+    \purple{
+        Izjava $x \in X $ doda x v kontekst, kjer je x sveža spremenljivka. 
+        Spremenljivka $x$ in predpostavka $ \Phi (x) $ sta na voljo le v oranžnem kvadratku. 
+    }
+
+
+\end{document}
+
